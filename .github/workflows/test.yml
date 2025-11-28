@@ -4,13 +4,12 @@ on:
   #push:
    # branches: [ main ]
   workflow_dispatch:   # ✅ Manual trigger only
-
-inputs:                      #for parameters apply & destory
-    action:
-    description: "Choose Terraform Action"
-    required: true
-    type: choice
-    options:
+    inputs:
+      action:
+        description: "Choose Terraform Action"
+        required: true
+        type: choice
+        options:
           - apply
           - destroy
 
