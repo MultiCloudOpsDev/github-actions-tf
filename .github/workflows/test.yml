@@ -5,6 +5,15 @@ on:
    # branches: [ main ]
   workflow_dispatch:   # ✅ Manual trigger only
 
+  inputs:                      #for parameters apply & destory
+      action:
+        description: "Choose Terraform Action"
+        required: true
+        type: choice
+        options:
+          - apply
+          - destroy
+
 
 jobs:
   terraform:
@@ -32,4 +41,16 @@ jobs:
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'apply' }}
         run: terraform apply -auto-approve tfplan
+
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        run: terraform destroy -auto-approve
+
+
+
+
+# Safety Tips (Important)
+# ⚠️ Since destroy is dangerous, in real projects you should:
+# Add manual approval for destroy
