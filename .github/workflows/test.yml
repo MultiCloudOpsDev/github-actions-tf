@@ -4,14 +4,14 @@ on:
   #push:
    # branches: [ main ]
   workflow_dispatch:   # ✅ Manual trigger only
-    inputs:                      #for parameters apply destroy (Correct spacing = 2 spaces per level)
-      action:
-        description: "Choose Terraform Action"
-        required: true
-        type: choice
-        options:
-          - apply
-          - destroy
+    # inputs:                      #for parameters apply destroy (Correct spacing = 2 spaces per level)
+    #   action:
+    #     description: "Choose Terraform Action"
+    #     required: true
+    #     type: choice
+    #     options:
+    #       - apply
+    #       - destroy
 
 
 jobs:
@@ -40,12 +40,12 @@ jobs:
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        if: ${{ github.event.inputs.action == 'apply' }}
+        # if: ${{ github.event.inputs.action == 'apply' }}
         run: terraform apply -auto-approve tfplan
 
-      - name: Terraform Destroy
-        if: ${{ github.event.inputs.action == 'destroy' }}
-        run: terraform destroy -auto-approve 
+      # - name: Terraform Destroy
+      #   if: ${{ github.event.inputs.action == 'destroy' }}
+      #   run: terraform destroy -auto-approve 
 
 
 
